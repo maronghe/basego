@@ -13,19 +13,7 @@ import (
 	"testing"
 )
 
-//
-//→  go test -run="" -bench=. -benchmem -v -count=10                                                                                     master ✖︎ [12:04:49]
-//goos: darwin
-//goarch: amd64
-//pkg: basego/clone
-//BenchmarkIntSlice
-//BenchmarkIntSlice-12               97086             68048 ns/op          778293 B/op          1 allocs/op
-//BenchmarkIntSlice-12              161752             98109 ns/op         1294386 B/op          1 allocs/op
-//BenchmarkIntSlice-12              153955             99184 ns/op         1237045 B/op          1 allocs/op
-//^Csignal: interrupt
-//FAIL    basego/clone    39.956s
-//
-//# logan at macmadeMacBook-Pro.local in ~/go/src/basego/clone
+
 //→  go test -run="" -bench=. -benchmem -v -count=10                                                                                     master ✖︎ [12:07:28]
 //goos: darwin
 //goarch: amd64
