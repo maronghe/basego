@@ -11,7 +11,7 @@ import (
 
 // BST Node
 type Node struct {
-	data   int
+	data  int
 	count int
 	left  *Node
 	right *Node

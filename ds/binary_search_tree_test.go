@@ -12,7 +12,7 @@ import (
 	"testing"
 )
 
-func TestBST(t *testing.T) {
+func TestBSTFeatures(t *testing.T) {
 
 	/** Let's create flowing BST
 						50(2)
@@ -52,6 +52,20 @@ func TestBST(t *testing.T) {
 	fmt.Println(bst)
 
 }
+
+//./binary_search_tree_test.go:60:10: constant 111111111111111111111 overflows int
+func TestBSTBoundary(t *testing.T) {
+
+	bst := ds.NewBinarySearchTree(0)
+	bst.Insert(-1).
+		Insert(111111111111111111111).
+		Insert(30)
+
+	fmt.Println(bst)
+
+}
+
+
 
 
 //
