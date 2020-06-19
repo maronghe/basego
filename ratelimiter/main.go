@@ -5,9 +5,15 @@ import (
 	"time"
 
 	"go.uber.org/ratelimit"
+	rl "github.com/juju/ratelimit"
 )
 
 func main() {
+	tokenBucket()
+}
+
+func test1() {
+
 	//  基于漏桶算法实现
 	rl := ratelimit.New(1) // per second
 
@@ -18,15 +24,18 @@ func main() {
         prev = now
     }
 
-    // Output:
-    // 0 0
-    // 1 10ms
-    // 2 10ms
-    // 3 10ms
-    // 4 10ms
-    // 5 10ms
-    // 6 10ms
-    // 7 10ms
-    // 8 10ms
-    // 9 10ms
+}
+
+func tokenBucket(){
+	b := rl.NewBucket(time.Second, 10) // 内部维护一个容量总数，定时向其中添加数据
+	fmt.Println(b.Available())
+	go func(){
+		for {
+			b.Take(2)
+			fmt.Println("take 2 " , b.Available())
+			time.Sleep(500 * time.Millisecond)
+		}
+	}()
+	time.Sleep(2 * time.Second)
+	fmt.Println(b.Available())
 }
