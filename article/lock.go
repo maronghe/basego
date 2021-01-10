@@ -1,0 +1,44 @@
+package main
+
+import (
+	"os"
+	"runtime/trace"
+	"sync"
+	"sync/atomic"
+	"time"
+)
+
+// Article Ref: https://xargin.com/a-rlock-story/
+var mlock sync.RWMutex
+var wg sync.WaitGroup
+
+func main() {
+	_ = trace.Start(os.Stderr)
+	defer trace.Stop()
+	wg.Add(100)
+
+	for i := 0; i < 100; i++ {
+		go gets()
+	}
+
+	wg.Wait()
+}
+
+func gets() {
+	for i := 0; i < 100000; i++ {
+		get(i)
+	}
+	wg.Done()
+}
+
+var a int64
+
+func get(i int) {
+	beginTime := time.Now()
+	mlock.RLock()
+	tmp1 := time.Since(beginTime).Nanoseconds() / 1000000
+	if tmp1 > 100 { // 超过100ms就打印出来
+		atomic.AddInt64(&a, 1)
+	}
+	mlock.RUnlock()
+}
